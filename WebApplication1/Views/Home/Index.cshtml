@@ -1,0 +1,32 @@
+﻿@using WebApplication1.Controllers
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model List<Category>
+<ul>
+    @foreach (var item in Model.Where(x => x.PaternId == 0))
+    {
+        <li>@item.CategoryName</li>
+    GetPatern(item.Id);
+    }
+
+</ul>
+@{
+    void GetPatern(int id)
+    {
+
+        var pateerns = Model.Where(x => x.PaternId == id && x.PaternId != 0);
+        if (pateerns.Any())
+        {
+            <ul>
+                @foreach (var item2 in pateerns)
+                {
+                    <li> @item2.CategoryName</li>
+                    GetPatern(item2.Id);
+                }
+            </ul>
+        }
+
+    }
+}
